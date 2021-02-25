@@ -1,0 +1,30 @@
+-----
+local LocalPlayer = game:GetService('Players').LocalPlayer
+-----
+
+function IsWhitelist(Player)
+    for i,v in pairs(_G.Whitelist) do
+        if Player.Name == v then
+            return true
+        end;
+    end;
+    return false;
+end;
+
+while _G.KillAura do
+    wait();
+    if LocalPlayer.Character:FindFirstChildOfClass('Tool') then
+        local Tool = LocalPlayer.Character:FindFirstChildOfClass('Tool');
+        if Tool:FindFirstChild('swing') then
+            for i,v in pairs(game.Players:GetChildren()) do
+                if v ~= LocalPlayer then
+                    if v.Character and v.Character:FindFirstChild('Humanoid') and (v.Character.HumanoidRootPart.Position - LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 7 then
+                        Tool:FindFirstChild('swing'):FireServer();
+                        Tool:FindFirstChild('hit'):FireServer(v.Character.Humanoid);
+                    end;
+                end;
+            end;
+        end;
+    end;
+    -----
+end;
